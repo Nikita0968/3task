@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
+@Vite(['resources/css/app.css', 'resources/js/app.js'])
     <meta charset="UTF-8">
-    <title>Редактирование заявления</title>
+    <title>Создание заявления</title>
 </head>
-
 <body>
-    <h1>Редактировать заявление</h1>
-
-
-    <form method="POST" action="{{route('report.update', $report)}}">
+    <x-app-layout>
+    <h2>Редактировать заявление</h2>
+   
+    <form method="POST" action="{{ route('report.update', $report->id) }}">
         @csrf
-        @method('put')
+        @method('PUT')
+        
+        <div>
+            <label>Регистрационный номер авто</label><br>
+            <input type="text" name="number" value="{{ $report->number }}" required>
+        </div>
 
-        <label>Госномер:</label><br>
-        <input type="text" name="number" value="{{ $report->number }}"><br>
+        <br>
 
-        <label>Описание:</label><br>
-        <textarea name="description">{{ $report->description }}</textarea><br>
-
-        <input type="submit" value="Сохранить">
+        <div>
+            <label>Описание нарушения</label><br>
+            <textarea name="description" rows="4" required>{{ $report->description }}</textarea>
+        </div>
+        
+        <br>
+        <button type="submit">Обновить</button>
     </form>
-</body>
 
+    <br>
+    </x-app-layout>
+</body>
 </html>
